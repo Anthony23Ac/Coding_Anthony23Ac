@@ -1,0 +1,348 @@
+My prompt: Could you give me a challenging program to practice with, please?
+
+🧩 Project 4 — Personal Inventory Manager
+
+You're going to build a console-based inventory management system.
+
+The program should simulate a small store that manages products, stock, prices, and sales.
+
+Difficulty: ⭐⭐⭐⭐☆ — Early Intermediate
+
+The important part: I'm not going to give you the solution. I'll give you the requirements and let you design the architecture yourself.
+
+🎯 Main objective
+
+Build a program that can:
+
+Create products
+      ↓
+Store them in memory
+      ↓
+Save them to a file
+      ↓
+Load them when the program starts
+      ↓
+Modify inventory
+      ↓
+Register sales
+      ↓
+Calculate statistics
+
+You should use:
+
+OOP
+Classes
+Objects
+Methods
+Attributes
+File I/O
+Lists/dictionaries
+Functions
+Loops
+Conditionals
+Exception handling
+Input validation
+1. Product class
+
+Create a Product class.
+
+Each product should have at least:
+
+ID
+Name
+Category
+Price
+Stock
+
+For example:
+
+ID: 1001
+Name: Windbreaker
+Category: Jackets
+Price: 149900
+Stock: 15
+
+The class should have methods that allow you to manipulate the product.
+
+For example, conceptually:
+
+increase stock
+decrease stock
+change price
+display information
+
+You decide the method names.
+
+2. Inventory class
+
+Create another class responsible for managing all products.
+
+For example:
+
+Inventory
+│
+├── products
+├── add_product()
+├── remove_product()
+├── find_product()
+├── update_stock()
+├── search_products()
+└── ...
+
+The Inventory object should be responsible for managing the collection of Product objects.
+
+This is where I want you to practice composition:
+
+Inventory
+   ↓
+contains
+   ↓
+Product objects
+3. File I/O 💾
+
+This is the most important new part.
+
+When the program starts:
+
+Program starts
+      ↓
+Does inventory file exist?
+      ↓
+YES → Load products
+NO  → Create empty inventory
+
+When the program changes the inventory, you should be able to save it.
+
+For example:
+
+inventory.json
+
+I'd recommend JSON for this project.
+
+Your file could conceptually contain:
+
+[
+    {
+        "id": 1001,
+        "name": "Windbreaker",
+        "category": "Jackets",
+        "price": 149900,
+        "stock": 15
+    }
+]
+
+But here's the challenge:
+
+Don't simply store the Product objects directly.
+
+You'll need to think about:
+
+Product object
+      ↓
+dictionary
+      ↓
+JSON
+
+and then:
+
+JSON
+      ↓
+dictionary
+      ↓
+Product object
+
+That will give you very useful practice with serialization/deserialization.
+
+4. Main menu
+
+Your program should have something like:
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+================================
+       INVENTORY MANAGER
+================================
+
+1. Add product
+2. Remove product
+3. Search product
+4. Display all products
+5. Update stock
+6. Change price
+7. Register sale
+8. Inventory statistics
+9. Save inventory
+10. Exit
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+You can design the interface yourself.
+
+5. Register a sale 🛒
+
+This is where the project becomes more interesting.
+
+Suppose:
+
+Product:
+Windbreaker
+Price: $149,900
+Stock: 15
+
+The user sells:
+
+3 units
+
+Your program should:
+
+Stock: 15
+   ↓
+Sell 3
+   ↓
+Stock: 12
+
+And calculate:
+
+Revenue = 149900 × 3
+        = 449700
+
+You should not allow:
+
+Sell 20
+
+when only 15 exist.
+
+6. Statistics 📊
+
+Your program should calculate things such as:
+
+Total products
+Total units in inventory
+Total inventory value
+Most expensive product
+Cheapest product
+Product with highest stock
+Product with lowest stock
+Total revenue
+
+You already practiced sum(), max(), etc., so this is a good opportunity to decide when using Python's built-ins is appropriate.
+
+7. Search system 🔎
+
+Allow the user to search by:
+
+ID
+Name
+Category
+
+For example:
+
+Search: jacket
+
+could produce:
+
+Results:
+
+1001 — Windbreaker — Jackets — $149,900
+1005 — Winter Jacket — Jackets — $199,900
+1008 — Denim Jacket — Jackets — $129,900
+8. Error handling
+
+Your program should gracefully handle things such as:
+
+Invalid number
+Invalid product ID
+Negative price
+Negative stock
+Product doesn't exist
+Product already exists
+Insufficient stock
+Corrupted JSON file
+Missing file
+
+For example:
+
+Sell quantity: 20
+
+❌ Not enough stock.
+Available stock: 12
+
+Don't let the program crash unnecessarily.
+
+🏗️ Architecture challenge
+
+Since you've already learned modularization, don't put everything in main.py.
+
+I'd suggest something along these lines:
+
+InventoryManager/
+│
+├── main.py
+├── models.py
+├── inventory.py
+├── storage.py
+└── menu.py
+
+But you are responsible for deciding what belongs in each file.
+
+That's part of the exercise.
+
+🚨 Rules
+
+To make this genuinely useful for your level:
+
+Don't use:
+pandas
+databases
+GUI libraries
+external APIs
+pickle
+eval()
+
+And don't copy a complete solution from the Internet.
+
+You may use:
+json
+os / pathlib
+standard Python libraries
+everything you've learned so far
+🏆 Scoring system
+
+When you finish, send me the complete project and I'll grade it out of 50 points:
+
+Category	Points
+OOP design	10
+File I/O / JSON	10
+Logic & algorithms	10
+Error handling & validation	7
+Architecture / modularity	7
+Code quality	6
+TOTAL	50
+
+And I'll be strict with the grading.
+
+⭐ Bonus challenge
+
+After you've finished the basic version, add:
+
+Sales history
+
+Every sale should be saved to a separate file, for example:
+
+sales.json
+
+Then your program could tell you:
+/////////////////////////////////////////////////////////////////////////////////////
+========== SALES STATISTICS ==========
+
+Total sales: 27
+Units sold: 64
+Revenue: $8,742,300
+
+Best-selling product:
+Windbreaker — 18 units
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+That bonus will force you to combine OOP + File I/O + data structures + real program architecture, which is exactly where I think you should go next.
